@@ -1,0 +1,254 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --work:  #e74c6f;
+  --short: #4ecdc4;
+  --long:  #6c63ff;
+  --accent: var(--work);
+  --bg1: #1a1a2e;
+  --bg2: #16213e;
+  --bg3: #0f3460;
+  --text: #eaeaea;
+  --muted: #8892a4;
+}
+
+body {
+  font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background: var(--bg1);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* 拖拽条 */
+.titlebar {
+  height: 28px;
+  -webkit-app-region: drag;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 24px 24px;
+  gap: 20px;
+  height: 100vh;
+}
+
+/* 模式 tabs */
+.mode-tabs {
+  display: flex;
+  background: var(--bg2);
+  border-radius: 30px;
+  padding: 4px;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+
+.tab {
+  padding: 7px 20px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  border-radius: 26px;
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 500;
+}
+
+.tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.tab:hover:not(.active) {
+  color: var(--text);
+}
+
+/* 环形计时器 */
+.timer-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  -webkit-app-region: no-drag;
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--bg2);
+  stroke-width: 10;
+}
+
+.ring-fg {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 603;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset .9s linear, stroke .3s;
+  filter: drop-shadow(0 0 8px var(--accent));
+}
+
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.time {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.session-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* 控制按钮 */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  -webkit-app-region: no-drag;
+}
+
+.btn-main {
+  width: 110px;
+  height: 44px;
+  border-radius: 22px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .1s, filter .2s;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.btn-main:hover { filter: brightness(1.15); }
+.btn-main:active { transform: scale(.96); }
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid #2a2a4a;
+  background: var(--bg2);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+
+.btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-icon:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* 番茄计数点 */
+.tomatoes {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 16px;
+}
+
+.tomato {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1.5px solid #2a2a4a;
+  transition: all .3s;
+}
+
+.tomato.done {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* 统计 */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--bg2);
+  border-radius: 16px;
+  padding: 14px 32px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: #2a2a4a;
+}
+
+/* 模式颜色切换 */
+body.mode-short  { --accent: var(--short); }
+body.mode-long   { --accent: var(--long);  }
+body.mode-work   { --accent: var(--work);  }
+
+/* 动画 */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.time.ticking {
+  animation: pulse 1s ease-in-out infinite;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>番茄钟</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 拖拽区域 -->
+  <div class="titlebar"></div>
+
+  <div class="app">
+    <!-- 模式切换 -->
+    <div class="mode-tabs">
+      <button class="tab active" data-mode="work">专注</button>
+      <button class="tab" data-mode="short">短休息</button>
+      <button class="tab" data-mode="long">长休息</button>
+    </div>
+
+    <!-- 环形进度 + 时间显示 -->
+    <div class="timer-wrap">
+      <svg class="ring" viewBox="0 0 220 220">
+        <circle class="ring-bg" cx="110" cy="110" r="96" />
+        <circle class="ring-fg" id="ringFg" cx="110" cy="110" r="96" />
+      </svg>
+      <div class="timer-center">
+        <div class="time" id="timeDisplay">25:00</div>
+        <div class="session-label" id="sessionLabel">第 1 个番茄</div>
+      </div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="controls">
+      <button class="btn-icon" id="btnReset" title="重置">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+      </button>
+      <button class="btn-main" id="btnStart">开始</button>
+      <button class="btn-icon" id="btnSkip" title="跳过">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 番茄计数 -->
+    <div class="tomatoes" id="tomatoRow"></div>
+
+    <!-- 统计 -->
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-num" id="statToday">0</span>
+        <span class="stat-label">今日完成</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" id="statTotal">0</span>
+        <span class="stat-label">总计完成</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
